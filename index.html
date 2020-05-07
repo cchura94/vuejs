@@ -1,0 +1,34 @@
+
+<div id="app">
+    <h1 v-if="estado"> {{ mensaje }} </h1>
+    <h2 v-show="estado"> {{ estado }} </h2>
+    <h2>Lista de Tecnologias</h2>
+    <ol>
+        <li v-for="tec in tecnologias">{{ tec }}</li>
+    </ol>
+
+    <button v-on:click="mostrarMensaje()">Mostrar Mensaje</button>
+    <button v-on:click="ocultarMensaje()">Ocultar Mensaje</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data:{
+            mensaje: "Hola Mundo desde Vue.js",
+            estado: false,
+            tecnologias: ["JAVA", "JAVASCRIPT", "PYTHON", "PHP"]
+        },
+        methods:{
+            mostrarMensaje(){
+                this.estado = true;
+            },
+
+            ocultarMensaje(){
+                this.estado = false;
+            }
+        }
+    })
+</script>

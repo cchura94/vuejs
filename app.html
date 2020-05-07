@@ -1,0 +1,92 @@
+<div id="app">
+<h1>Lista de Actividades</h1>
+
+    <progress :value="progress" :max="actividades.length"></progress>
+
+    <div class="caja">
+        <h1>Actividades (Tareas)</h1>
+        <hr>
+
+        <ol>
+            <li v-for="act in actividades" v-if="act.estado == 0">{{ act.nombre }} <button @click="proceso(act)">en proceso</button></li>
+        </ol>
+
+        <hr>
+        <input type="text" v-model="tarea">
+        <button @click="agregarTarea()">Agregar tarea</button>
+
+    </div>
+    <div class="caja">
+        <h1>En Proceso</h1>
+        <hr>
+        <ol>
+            <li v-for="p in procesos" v-if="p.estado == 1">{{ p.nombre }} <button @click="terminado(p)">terminado</button> </li>
+        </ol>
+
+    </div>
+    <div class="caja">
+        <h1>Terminados</h1>
+        <hr>
+        <ol>
+            <li v-for="t in terminados">{{ t.nombre }}</li>
+        </ol>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            actividades: [
+                {nombre: "Aprender Vue.js", estado: 0},
+                {nombre: "Aprender Angular", estado: 0},
+                {nombre: "Aprender React.js", estado: 0},
+                {nombre: "Aprender Node.js", estado: 0},
+                {nombre: "Aprender Express.js", estado: 0}
+            ],
+
+            procesos: [],
+            terminados: [],
+            tarea: "",
+            progress: 0         
+        },
+        methods:{
+            proceso(actividad){
+                actividad.estado = 1;
+                this.procesos.push(actividad)
+            },
+            terminado(actividad){
+                actividad.estado = 2;
+                this.terminados.push(actividad)
+                this.progress += 1;
+            },
+            agregarTarea(){
+                this.actividades.push({nombre: this.tarea, estado:0})
+            }
+        }
+    })
+
+</script>
+
+<style>
+    body{
+        background-color: teal;
+    }
+    .caja{
+        width: 30%;
+        height: 500px;
+        background-color: orange;
+        float: left;
+        margin: 10px;
+    }
+
+    progress{
+        width: 100%;
+        height: 30px;
+        background-color: green;
+    }
+
+</style>
